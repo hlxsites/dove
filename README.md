@@ -1,9 +1,8 @@
-# Your Project's Title...
-Your project's description...
+# Unilever - dove website
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.hlx.page/
-- Live: https://main--{repo}--{owner}.hlx.live/
+- Preview: https://main--dove--hlxsites.hlx.page/
+- Live: https://main--dove--hlxsites.hlx.live/
 
 ## Installation
 
