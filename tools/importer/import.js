@@ -52,7 +52,7 @@ function transformProductCard(document) {
 
 function transformPageList(document) {
   document.querySelectorAll('.pagelist').forEach((pageList) => {
-    // Get all page links
+    const style = 'max'; // TODO Add more styles
     const pages = Array.from(pageList.querySelectorAll('ul > li')).map((li) => li.querySelector('a').href);
     const list = document.createElement('ul');
     pages.forEach((page) => {
@@ -62,7 +62,7 @@ function transformPageList(document) {
     });
 
     const cells = [
-      ['Page List'],
+      [`Page List (${style})`],
       [list],
     ];
     const table = WebImporter.DOMUtils.createTable(cells, document);
@@ -72,12 +72,13 @@ function transformPageList(document) {
 
 function transformHomeStory(document) {
   Array.from(document.querySelectorAll('.component-homestory')).map((e) => e.parentNode).filter((value, index, self) => self.indexOf(value) === index).forEach((homeStory) => {
+    const style = homeStory.parentNode.classList.contains('stories-variant2') ? 'variant2' : 'variant1';
     const imageLeft = homeStory.querySelector('.circular-image-left picture');
     const imageRight = homeStory.querySelector('.circular-image-right picture');
     const content = homeStory.querySelector('.cmp-teaser__content');
 
     const cells = [
-      ['Home Story'],
+      [`Home Story (${style})`],
       [imageLeft, content, imageRight],
     ];
     const table = WebImporter.DOMUtils.createTable(cells, document);
