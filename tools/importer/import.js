@@ -91,6 +91,25 @@ function transformSeparator(document) {
   });
 }
 
+// Transform all image urls
+function makeProxySrcs(document) {
+  const host = 'https://www.dove.com';
+  document.querySelectorAll('img').forEach((img) => {
+    if (img.src.startsWith('/')) {
+      // make absolute
+      const cu = new URL(host);
+      img.src = `${cu.origin}${img.src}`;
+    }
+    try {
+      const u = new URL(img.src);
+      u.searchParams.append('host', u.origin);
+      img.src = `http://localhost:3001${u.pathname}${u.search}`;
+    } catch (error) {
+      console.warn(`Unable to make proxy src for ${img.src}: ${error.message}`);
+    }
+  });
+}
+
 export default {
   /**
    * Apply DOM operations to the provided document and return
@@ -141,6 +160,7 @@ export default {
       transformPageList,
       transformHomeStory,
       transformSeparator,
+      makeProxySrcs,
     ].forEach((f) => f.call(null, document));
 
     return document.body;
