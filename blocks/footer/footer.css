@@ -12,3 +12,35 @@ footer .footer {
 footer .footer p {
   margin: 0;
 }
+
+footer > div > div {
+  display: flex ;
+  width: 100%;
+  padding: 155px 10px 5px;
+  max-width: 64pc;
+  margin: auto;
+}
+
+footer div div div {
+  width: 25%;
+}
+
+footer div div ul {
+  list-style-type: none;
+}
+
+footer div div ul li {
+  line-height: 2.4rem;
+  color: #666;
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+  margin: 0 0 29px;
+  padding: 0;
+  position: relative;
+}
+
+footer div div ul li a:any-link {
+  color: #666;
+  font-size: 62.5%;
+}
