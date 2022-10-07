@@ -12,6 +12,19 @@ function collapseAllNavSections(sections) {
 }
 
 /**
+ * collapses all open sibling
+ *
+ * @param {Element} element current element
+ */
+
+function collapseAllSiblings(element) {
+  for (let i = 0; i < element.parentElement.children.length; i += 1) {
+    const child = element.parentElement.children[i];
+    child.setAttribute('aria-expanded', 'false');
+  }
+}
+
+/**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -44,6 +57,7 @@ export default async function decorate(block) {
         navSection.addEventListener('click', () => {
           const expanded = navSection.getAttribute('aria-expanded') === 'true';
           collapseAllNavSections(navSections);
+          collapseAllSiblings(navSection);
           navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
         });
       });
