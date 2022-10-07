@@ -12,6 +12,16 @@
 /* global WebImporter */
 /* eslint-disable no-console, class-methods-use-this */
 
+function mapVariantsToStyles(classList, maps) {
+  const styles = [];
+  maps.forEach((map) => {
+    if (classList.contains(map[0])) {
+      styles.push(map[1]);
+    }
+  });
+  return styles;
+}
+
 function transformBreadcrumb(document) {
   document.querySelectorAll('.breadcrumb').forEach((breadcrumb) => {
     const items = breadcrumb.querySelector('ol');
@@ -52,7 +62,7 @@ function transformProductCard(document) {
 
 function transformPageList(document) {
   document.querySelectorAll('.pagelist').forEach((pageList) => {
-    const style = 'max'; // TODO Add more styles
+    const styles = mapVariantsToStyles(pageList.classList, [['pagelist-pink', 'pink'], ['multiple-related-articles-circles', 'circles'], ['cmp-pagelist-homrpage-fr', 'max']]);
     const pages = Array.from(pageList.querySelectorAll('ul > li')).map((li) => li.querySelector('a').href);
     const list = document.createElement('ul');
     pages.forEach((page) => {
@@ -62,7 +72,7 @@ function transformPageList(document) {
     });
 
     const cells = [
-      [`Page List (${style})`],
+      [`Page List (${styles.join(', ')})`],
       [list],
     ];
     const table = WebImporter.DOMUtils.createTable(cells, document);
@@ -71,6 +81,7 @@ function transformPageList(document) {
 }
 
 function transformHomeStory(document) {
+  // This is a teaser component, but easier to edit as dedicated block
   Array.from(document.querySelectorAll('.component-homestory')).map((e) => e.parentNode).filter((value, index, self) => self.indexOf(value) === index).forEach((homeStory) => {
     const style = homeStory.parentNode.classList.contains('stories-variant2') ? 'variant2' : 'variant1';
     const imageLeft = homeStory.querySelector('.circular-image-left picture');
@@ -89,6 +100,71 @@ function transformHomeStory(document) {
 function transformSeparator(document) {
   document.querySelectorAll('.separator').forEach((separator) => {
     separator.replaceWith(document.createElement('hr'));
+  });
+}
+
+function transformButton(document) {
+  document.querySelectorAll('.button').forEach((button) => {
+    const styles = mapVariantsToStyles(button.classList, [['btn-blue', 'blue'], ['type-a', 'type A']]);
+    const cells = [
+      [`Button (${styles.join(', ')})`],
+      [button.firstElementChild],
+    ];
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    button.replaceWith(table);
+  });
+}
+
+function transformTextTicker(document) {
+  document.querySelectorAll('.text.text-ticker').forEach((ticker) => {
+    const cells = [
+      ['Text Ticker'],
+      [ticker.firstElementChild],
+    ];
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    ticker.replaceWith(table);
+  });
+}
+
+function transformEmbed(document) {
+  document.querySelectorAll('.embed').forEach((embed) => {
+    const styles = mapVariantsToStyles(embed.classList, [['cmp-embed-video-left', 'video left']]);
+    const content = embed.querySelector('.cmp-embed-video__content');
+    const videoImg = embed.querySelector('.cmp-embed-video__image picture');
+    const videoLink = embed.querySelector('.cmp-embed-video__player').getAttribute('data-src');
+    const left = document.createElement('div');
+    left.append(videoImg);
+    left.append(videoLink);
+
+    const cells = [
+      [`Embed (${styles.join(', ')})`],
+      [left, content],
+    ];
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    embed.replaceWith(table);
+  });
+}
+
+function transformTeaser(document) {
+  document.querySelectorAll('.teaser').forEach((teaser) => {
+    // Skip hero teaser
+    if (teaser.classList.contains('cmp-teaser-top-image')) return;
+
+    const styles = mapVariantsToStyles(teaser.classList, [['cmp-teaser-big-image-circle', 'circle'], ['teaser-featured-category-v2', 'category']]);
+    const image = teaser.querySelector('.cmp-teaser__image picture');
+    const content = teaser.querySelector('.cmp-teaser__content');
+
+    let contentRow = image ? [content, image] : [content];
+    if (teaser.classList.contains('cmp-teaser-left-image')) {
+      contentRow = contentRow.reverse();
+    }
+
+    const cells = [
+      [`Teaser (${styles.join(', ')})`],
+      contentRow,
+    ];
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    teaser.replaceWith(table);
   });
 }
 
@@ -157,7 +233,8 @@ export default {
     WebImporter.DOMUtils.remove(document.body, [
       'header',
       'footer',
-      'iframe', // Adobe Syncing iFrame
+      '#onetrust-consent-sdk',
+      'body > iframe', // Adobe Syncing iFrame
       '.cmp-teaser-read_more_link', // Teaser Read More Button
       '.pagelist .c-pagination', // Pagination of PageList component
     ]);
@@ -175,6 +252,11 @@ export default {
       transformPageList,
       transformHomeStory,
       transformSeparator,
+      transformButton,
+      transformTextTicker,
+      transformEmbed,
+      transformTeaser,
+
       makeProxySrcs,
       makeAbsoluteLinks,
     ].forEach((f) => f.call(null, document));
