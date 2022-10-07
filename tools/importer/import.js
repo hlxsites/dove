@@ -111,6 +111,20 @@ function makeProxySrcs(document) {
   });
 }
 
+function makeAbsoluteLinks(main) {
+  main.querySelectorAll('a').forEach((a) => {
+    if (a.href.startsWith('/')) {
+      const ori = a.href;
+      const u = new URL(a.href, 'https://main--dove--hlxsites.hlx.page/');
+      a.href = u.toString();
+
+      if (a.textContent === ori) {
+        a.textContent = a.href;
+      }
+    }
+  });
+}
+
 export default {
   /**
    * Apply DOM operations to the provided document and return
@@ -162,6 +176,7 @@ export default {
       transformHomeStory,
       transformSeparator,
       makeProxySrcs,
+      makeAbsoluteLinks,
     ].forEach((f) => f.call(null, document));
 
     return document.body;
