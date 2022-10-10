@@ -60,20 +60,29 @@ function transformProductCard(document) {
 }
 
 function transformPageList(document) {
-  document.querySelectorAll('.pagelist').forEach((pageList) => {
-    const styles = mapVariantsToStyles(pageList.classList, [['pagelist-pink', 'pink'], ['multiple-related-articles-circles', 'circles'], ['cmp-pagelist-homrpage-fr', 'max']]);
-    const pages = Array.from(pageList.querySelectorAll('ul > li')).map((li) => li.querySelector('a').href);
+  document.querySelectorAll('.pagelist, .page-list-sidebar').forEach((pageList) => {
+    const styles = mapVariantsToStyles(pageList.classList, [['pagelist-pink', 'pink'], ['blue', 'blue'], ['multiple-related-articles-circles', 'circle'], ['page-list-with-twisted-bg', 'circle'], ['cmp-pagelist-homrpage-fr', 'max'], ['page-list-sidebar', 'sidebar'], ['pagelist-topic', 'topic'], ['pagelist-flipcard', 'flipcard']]);
+    const pages = Array.from(pageList.querySelectorAll('ul.cmp-list > li')).map((li) => li.querySelector('a').href);
+
+    const cells = [
+      [`Page List (${styles.join(', ')})`],
+    ];
+
+    const header = pageList.querySelector('.pagelist-header');
+    if (header && header.textContent.trim() !== '') {
+      // Remove filters
+      header.querySelector('.select-filter')?.remove();
+      cells.push([header.textContent]);
+    }
+
     const list = document.createElement('ul');
     pages.forEach((page) => {
       const li = document.createElement('li');
       li.textContent = page;
       list.appendChild(li);
     });
+    cells.push([list]);
 
-    const cells = [
-      [`Page List (${styles.join(', ')})`],
-      [list],
-    ];
     const table = WebImporter.DOMUtils.createTable(cells, document);
     pageList.replaceWith(table);
   });
@@ -127,7 +136,7 @@ function transformTextTicker(document) {
 
 function transformEmbed(document) {
   document.querySelectorAll('.embed').forEach((embed) => {
-    const styles = mapVariantsToStyles(embed.classList, [['cmp-embed-video-left', 'video left']]);
+    const styles = mapVariantsToStyles(embed.classList, [['cmp-embed-video-left', 'video left'], ['cmp-embed-video-center', 'center']]);
     const content = embed.querySelector('.cmp-embed-video__content');
     const videoImg = embed.querySelector('.cmp-embed-video__image picture');
     const videoLink = embed.querySelector('.cmp-embed-video__player').getAttribute('data-src');
@@ -144,12 +153,56 @@ function transformEmbed(document) {
   });
 }
 
+function transformSocialShare(document) {
+  document.querySelectorAll('.socialShareUL').forEach((socialShare) => {
+    const title = socialShare.querySelector('.socialShareUL-heading-title').textContent;
+    const platforms = Object.values(JSON.parse(socialShare.querySelector('.cmp-integration--socialsharing').dataset.cmpDataLayer))[0].socialSharingPlatforms;
+    const platformList = document.createElement('ul');
+    platforms.forEach((platform) => {
+      const li = document.createElement('li');
+      li.textContent = platform;
+      platformList.appendChild(li);
+    });
+
+    const cells = [
+      ['Social Share'],
+      [title],
+      [platformList],
+    ];
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    socialShare.replaceWith(table);
+  });
+}
+
+function transformTags(document) {
+  document.querySelectorAll('.tags').forEach((tags) => {
+    const cells = [
+      ['Tags'],
+    ];
+
+    if (!tags.classList.contains('tags-no-title')) {
+      cells.push(tags.querySelector('.cmp-tags__heading'));
+    }
+
+    // Title only if tags-no-title
+    const tagList = tags.querySelector('ul');
+
+    // Skip empty tags
+    if (!tagList) return;
+
+    cells.push([tagList]);
+
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    tags.replaceWith(table);
+  });
+}
+
 function transformTeaser(document) {
   document.querySelectorAll('.teaser').forEach((teaser) => {
     // Skip hero teaser
     if (teaser.classList.contains('cmp-teaser-top-image')) return;
 
-    const styles = mapVariantsToStyles(teaser.classList, [['cmp-teaser-big-image-circle', 'circle'], ['teaser-featured-category-v2', 'category']]);
+    const styles = mapVariantsToStyles(teaser.classList, [['cmp-teaser-big-image-circle', 'circle'], ['cmp-teaser-top-image-circle', 'circle'], ['teaser-featured-category-v2', 'category'], ['cmp-teaser-left-image-curve', 'curve']]);
     const image = teaser.querySelector('.cmp-teaser__image picture');
     const content = teaser.querySelector('.cmp-teaser__content');
 
@@ -164,6 +217,27 @@ function transformTeaser(document) {
     ];
     const table = WebImporter.DOMUtils.createTable(cells, document);
     teaser.replaceWith(table);
+  });
+}
+
+function transformQuickPoll(document) {
+  document.querySelectorAll('.quickpoll').forEach((quickPoll) => {
+    const title = quickPoll.querySelector('.cmp-question__header');
+    const options = Array.from(quickPoll.querySelectorAll('.cmp-question__answer .cmp-question__answer-item')).map((item) => item.textContent);
+    const optionList = document.createElement('ul');
+    options.forEach((option) => {
+      const li = document.createElement('li');
+      li.textContent = option;
+      optionList.appendChild(li);
+    });
+
+    const cells = [
+      ['Quick Poll'],
+      [title],
+      [optionList],
+    ];
+    const table = WebImporter.DOMUtils.createTable(cells, document);
+    quickPoll.replaceWith(table);
   });
 }
 
@@ -235,7 +309,9 @@ export default {
       '#onetrust-consent-sdk',
       'body > iframe', // Adobe Syncing iFrame
       '.cmp-teaser-read_more_link', // Teaser Read More Button
-      '.pagelist .c-pagination', // Pagination of PageList component
+      '.pagelist .c-pagination', // Pagination of PageList component,
+      '#_atssh', // AddThis Frame
+      '.hide-desktop', // Remove everything that should not be displayed on desktop site
     ]);
 
     document.body.append(WebImporter.Blocks.getMetadataBlock(document, meta));
@@ -255,6 +331,9 @@ export default {
       transformTextTicker,
       transformEmbed,
       transformTeaser,
+      transformSocialShare,
+      transformTags,
+      transformQuickPoll,
 
       makeProxySrcs,
       makeAbsoluteLinks,
