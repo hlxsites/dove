@@ -48,12 +48,11 @@ function transformDynamicQuote(document) {
 
 function transformProductCard(document) {
   document.querySelectorAll('.cmp-product-listing .list-card-item').forEach((card) => {
-    const cardImage = card.querySelector('.card-item--image > a');
-    const content = card.querySelector('.card-item--details');
+    const sku = card.querySelector('.card-item--image > a').dataset.productSku;
 
     const cells = [
       ['Product Card'],
-      [cardImage, content],
+      [sku],
     ];
     const table = WebImporter.DOMUtils.createTable(cells, document);
     card.replaceWith(table);
