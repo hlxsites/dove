@@ -36,13 +36,8 @@ function transformBreadcrumb(document) {
 
 function transformDynamicQuote(document) {
   document.querySelectorAll('.dynamicquote').forEach((quote) => {
-    const items = Array.from(quote.querySelectorAll('.cmp-dynamic-quote')).map((q) => q.textContent);
-    const cells = [
-      ['Dynamic Quote'],
-    ];
-    items.forEach((item) => cells.push([item]));
-    const table = WebImporter.DOMUtils.createTable(cells, document);
-    quote.replaceWith(table);
+    // Should be auto-blocked, since it is the same on every page
+    quote.remove();
   });
 }
 
