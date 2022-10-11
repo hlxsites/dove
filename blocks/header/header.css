@@ -13,6 +13,7 @@ header nav {
   height: var(--nav-height);
   box-sizing: border-box;
   font-family: var(--body-font-family);
+  border-bottom: 1px solid #ccc;
 }
 
 header nav a:any-link {
@@ -35,8 +36,8 @@ header .nav-brand {
 }
 
 header nav .nav-brand p {
-  margin: 0;
-  margin-left: -80px;
+  margin-top: -13px;
+  margin-left: -29px;
   position: absolute;
   display: flex;
   width: 100vw;
@@ -44,8 +45,23 @@ header nav .nav-brand p {
 }
 
 header nav .nav-brand img {
-  width: 128px;
-  height: auto;
+  width: 60px;
+  height: 42px;
+}
+
+.header nav .nav-brand picture::after {
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100%;
+  background-image: url("../../styles/global-nav-logo-bg.png");
+  display: block;
+  content: "   ";
+  color: white;
+  height: 20px;
+  width: 100px;
+  z-index: 1000;
+  margin-left: -18px;
+  margin-top: -1.6px;
 }
 
 /* hamburger */
@@ -129,6 +145,7 @@ header nav .nav-sections ul  {
 header nav .nav-sections li {
   font-size: 20px;
   font-weight: 500;
+  color: #666;
 }
 
 header nav[aria-expanded='true'] .nav-sections {
@@ -144,7 +161,11 @@ header nav .nav-tools {
 }
 
 header nav .nav-tools p {
+  display: flex;
   margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #666;
 }
 
 header nav[aria-expanded='true'] .nav-tools img {
@@ -166,7 +187,7 @@ header nav[aria-expanded='true'] .nav-tools li {
     display: flex;
     justify-content: space-between;
     height: var(--nav-height);
-    padding: 16px 2rem;
+    padding: 16px 2rem 16px 3rem;
   }
 
   header nav .nav-sections > ul > li.nav-drop {
@@ -211,6 +232,8 @@ header nav[aria-expanded='true'] .nav-tools li {
     text-align: center;
     justify-content: center;
     align-items: center;
+    padding: 4px;
+    line-height: 1rem;
   }
 
   header nav[aria-expanded='true'] .nav-sections ol {

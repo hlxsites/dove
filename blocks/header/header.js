@@ -34,7 +34,9 @@ export default async function decorate(block) {
   block.textContent = '';
 
   // fetch nav content
-  const navPath = cfg.nav || '/fr/nav';
+  const language = window.location.pathname.split('/')[1];
+  const navPathDefault = language.length > 0 ? `/${language}/nav` : '/nav';
+  const navPath = cfg.nav || navPathDefault;
   const resp = await fetch(`${navPath}.plain.html`);
   if (resp.ok) {
     const html = await resp.text();
