@@ -613,13 +613,48 @@ window.addEventListener('error', (event) => {
 
 loadPage(document);
 
+function createElement(element, className, children) {
+  const el = document.createElement(element);
+  el.classList.add(className);
+  if (children && Array.isArray(children)) {
+    children.forEach((c) => {
+      el.appendChild(c);
+    });
+  }
+  return el;
+}
+
+function createReadMoreButton() {
+  const heroButton = createElement('button', 'read-more');
+  heroButton.innerHTML = 'Voir Plus';
+  heroButton.setAttribute('aria-label', 'Voir Plus Continue Reading');
+  heroButton.setAttribute('data-more', 'Voir Plus');
+  heroButton.setAttribute('data-less', 'Réduire');
+  return heroButton;
+}
+
 function buildHeroBlock(main) {
   const h1 = main.querySelector('h1');
   const picture = main.querySelector('picture');
   // eslint-disable-next-line no-bitwise
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
+    const heroImage = createElement('div', 'hero-image', [picture]);
+    const heroDescription = createElement('div', 'hero-description');
+    const heroReadMore = createElement('div', 'hero-more');
+    h1.closest('div').querySelectorAll('p').forEach((p, i) => {
+      // eslint-disable-next-line no-bitwise
+      if (h1.compareDocumentPosition(p) & Node.DOCUMENT_POSITION_FOLLOWING) {
+        if (i > 1) {
+          heroReadMore.appendChild(p);
+        } else {
+          heroDescription.appendChild(p);
+        }
+      }
+    });
+    h1.classList.add('hero-title');
+    const heroContent = createElement('div', 'hero-content', [h1, heroDescription, heroReadMore, createReadMoreButton()]);
     const section = document.createElement('div');
-    section.append(buildBlock('hero', { elems: [picture, h1] }));
+    section.append(createElement('div', 'hero', [heroImage, heroContent]));
     main.prepend(section);
   }
 }
