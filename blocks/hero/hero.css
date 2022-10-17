@@ -101,7 +101,7 @@ main .hero .hero-image::after {
 
 main .hero .hero-image img {
   top: -25px;
-  aspect-ratio: 1600/750;
   display: block;
   height: auto;
+  width: 100%
 }
