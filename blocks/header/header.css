@@ -130,6 +130,7 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 /* sections */
 header nav .nav-sections {
   grid-area: sections;
+  width: 100%;
 }
 
 header nav .nav-sections ul  {
@@ -189,6 +190,22 @@ header nav .nav-tools p {
   font-size: 16px;
   font-weight: 500;
   color: #666;
+}
+
+header nav .nav-tools p a:nth-child(1) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+header nav .nav-tools p a:nth-child(1) span {
+  display: flex;
+  margin-right: 4px;
+}
+
+header nav .nav-tools p .icon-search svg {
+  width: 17px;
+  height: 17px;
 }
 
 header nav .nav-tools .search-dialog {
