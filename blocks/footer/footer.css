@@ -95,6 +95,10 @@ footer div div div:nth-child(4) ul li:nth-child(4) a img {
   height: auto;
 }
 
+footer div div div:nth-child(5) p a {
+  display: none;
+}
+
 footer div div div:nth-child(4) ul li:nth-child(4) a:nth-child(2) {
   font-size: 0.78rem;
   line-height: 1.75rem;
@@ -105,3 +109,42 @@ footer div div div:nth-child(4) ul li:nth-child(4) a:nth-child(2) span {
   display: none;
 }
 
+footer div div div:nth-child(5) p:nth-child(1) {
+  background: url("../../styles/oneTrustLogo.png") no-repeat;
+  background-size: contain;
+  content: "";
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100000;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+footer div div div:nth-child(5) p:nth-child(2) {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 27.5px;
+  background-size: contain;
+  content: "";
+  display: none;
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 100000;
+  cursor: pointer;
+  width: 55px;
+  height: 55px;
+}
+
+footer div div div:nth-child(5) p:nth-child(2)::before {
+  content: "expand_less";
+  font-family: "Material Icons";
+  font-size: 1.56rem;
+  display: inline-block;
+  padding-left: 14px;
+  padding-top: 7px;
+  color: #666;
+}

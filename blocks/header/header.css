@@ -150,6 +150,30 @@ header nav[aria-expanded='true'] .nav-sections {
   align-self: flex-start;
 }
 
+header nav:has(.nav-sections li[aria-expanded = true]) .close-menu {
+  background: transparent url("../../styles/cross.svg") no-repeat;
+  background-size: contain;
+  display: block;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 90px;
+  right: 40px;
+  padding: 0;
+}
+
+header nav:not(:has(.nav-sections li[aria-expanded = true])) .close-menu {
+  display: none;
+}
+
+html:has(header nav .nav-sections li[aria-expanded = true]) {
+  overflow: hidden;
+}
+
+html:not(:has(header nav .nav-sections li[aria-expanded = true])) {
+  overflow: scroll;
+}
+
 /* tools */
 header nav .nav-tools {
   grid-area: tools;
@@ -165,6 +189,157 @@ header nav .nav-tools p {
   font-size: 16px;
   font-weight: 500;
   color: #666;
+}
+
+header nav .nav-tools .search-dialog {
+  opacity: 1;
+  background-color: hsl(0deg 0% 100% / 94%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  transition: background-color 1ms;
+  padding: 30px 40px;
+
+}
+
+header nav .nav-tools .search-dialog-hidden {
+  display: none;
+}
+
+header .search-dialog-header {
+  width: 100%;
+  display: flex;
+  align-content: end;
+  justify-content: right;
+  max-width: 660px;
+  height: 50px;
+  margin: 50px auto 20px;
+}
+
+header .close-search {
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  margin-right: 20px;
+}
+
+header .close-search::before {
+  background-image: url("../../styles/crossicon.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  content: "";
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+}
+
+header .search-dialog-body {
+  width: 100%;
+  display: block;
+  max-width: 660px;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header .search-dialog-body label {
+  color: #666;
+  width: 100%;
+  font-size: 1.95rem;
+  margin-left: 55px;
+}
+
+header .search-dialog-body label::before {
+  background-image: url("../../styles/dove-icon.webp");
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  display: block;
+  height: 38px;
+  width: 38px;
+  left: 0;
+  position: absolute;
+  margin-top: 15px;
+}
+
+header .search-dialog-body input {
+  width: calc(100% - 170px);
+  border: 0;
+  border-bottom: 1px solid #aaa;
+  color: #002663;
+  font-size: 1.82rem;
+  font-weight: 200;
+  background-color: transparent;
+  height: 50px;
+  padding-left: 10px;
+}
+
+.nav-sections .search-dialog-body label {
+  color: white;
+}
+
+.nav-sections .search-dialog-body input {
+  background: white;
+  border-radius: 3px;
+}
+
+header .search-dialog-body input::placeholder {
+  color: #aaa;
+}
+
+header .search-dialog-body input:focus {
+  outline: none;
+}
+
+header .search-dialog-body .clear-search {
+  visibility: hidden;
+  width: 30px;
+  background-color: transparent;
+  display: inline;
+  position: relative;
+  padding: 0;
+  top: 0;
+  right: 2.5rem;
+  height: 51px;
+}
+
+header .search-dialog-body .clear-search::before {
+  background-image: url("../../styles/icon-close-grey.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  content: "";
+  height: 20px;
+  width: 20px;
+  display: block;
+  position: relative;
+}
+
+header .search-dialog-body .search {
+  width: 100px;
+  background-color: white;
+  border: solid #ccc;
+  border-radius: 3px;
+  border-width: 1px 1px 3px;
+  color: #002663;
+  float: right;
+  font-size: 1.04rem;
+  font-weight: 300;
+  position: relative;
+  min-width: 110px;
+  padding: 0;
+  top: 0;
+  right: 1.5rem;
+  height: 51px;
+  transition: background-color 0.6s ease-out;
+}
+
+header .search-dialog-body button.search:hover {
+  background-color: #ccc;
 }
 
 header nav[aria-expanded='true'] .nav-tools img {
@@ -277,6 +452,14 @@ header nav[aria-expanded='true'] .nav-tools li {
     background-image: url("../../styles/menu-cross.svg");
   }
 
+  header nav .nav-sections > ul > li > ul li[aria-expanded='true']:has(ul) > ul > li a::after {
+    background-image: url("../../styles/menu-dropdown.svg");
+  }
+
+  header nav .nav-sections > ul > li > ul li[aria-expanded='true']:has(ul) > ul > li[aria-expanded='true']:has(ul) a::after {
+    background-image: url("../../styles/menu-cross.svg");
+  }
+
   header nav .nav-sections > ul > li  ul{
     display: none;
   }
@@ -289,7 +472,7 @@ header nav[aria-expanded='true'] .nav-tools li {
     background-color: rgb(0 38 99 / 80%);
     backdrop-filter: blur(10px);
     width: 100vw;
-    height: 100vw;
+    height: 100vh;
     left: 0;
     padding: 16px;
     margin: 44px 0 0;
@@ -304,6 +487,8 @@ header nav[aria-expanded='true'] .nav-tools li {
     padding-top: 0;
     top: 64px;
     z-index: -1;
+    cursor: default;
+    overflow: auto;
   }
 
   header nav .nav-sections > ul > li[aria-expanded='true'] > a::before {

@@ -1,5 +1,13 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/scripts.js';
 
+function scrollFunction(mybutton) {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = 'block';
+  } else {
+    mybutton.style.display = 'none';
+  }
+}
+
 /**
  * loads and decorates the footer
  * @param {Element} block The header block element
@@ -24,6 +32,15 @@ export default async function decorate(block) {
       }
     }
   });
+
+  // Get the button:
+  const mybutton = footer.querySelector('div:nth-child(1) div:nth-child(5) p:nth-child(2)');
+  mybutton.addEventListener('click', () => {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  });
+  // When the user scrolls down 20px from the top of the document, show the button
+  window.onscroll = () => { scrollFunction(mybutton); };
   await decorateIcons(footer);
   block.append(footer);
 }

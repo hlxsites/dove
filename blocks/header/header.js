@@ -5,11 +5,11 @@ import { readBlockConfig, decorateIcons } from '../../scripts/scripts.js';
  * @param {Element} sections The container element
  */
 
-function collapseAllNavSections(sections) {
-  sections.querySelectorAll('.nav-sections > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', 'false');
-  });
-}
+// function collapseAllNavSections(sections) {
+//   sections.querySelectorAll('.nav-sections > ul > li').forEach((section) => {
+//     section.setAttribute('aria-expanded', 'false');
+//   });
+// }
 
 /**
  * collapses all open sibling
@@ -22,6 +22,45 @@ function collapseAllSiblings(element) {
     const child = element.parentElement.children[i];
     child.setAttribute('aria-expanded', 'false');
   }
+}
+
+function collapseAllChildren(element) {
+  for (let i = 0; i < element.children.length; i += 1) {
+    const child = element.children[i];
+    child.setAttribute('aria-expanded', 'false');
+    collapseAllChildren(child);
+  }
+}
+
+function addSearchForm(searchDialog) {
+  const searchContents = document.createElement('div');
+  searchDialog.append(searchContents);
+  searchContents.classList.add('search-contents');
+  searchContents.innerHTML = `<form>
+            <div class="search-dialog-body">            
+                <label>Bonjour, que recherchez-vous?</label>
+                <input placeholder="Tapez quelque chose ici">
+                <button class="clear-search"></button>
+                <button class="search">Recherche</button>
+            </div>
+        </form>`;
+  const searchInput = searchContents.querySelector('.search-dialog-body input');
+  searchContents.querySelector('.clear-search')
+    .addEventListener('click', () => {
+      searchInput.value = '';
+      searchInput.focus();
+      searchContents.querySelector('.clear-search')
+        .setAttribute('style', '');
+    });
+  searchInput.addEventListener('keyup', () => {
+    if (searchInput.value.length > 0) {
+      searchContents.querySelector('.clear-search')
+        .setAttribute('style', 'visibility: visible');
+    } else {
+      searchContents.querySelector('.clear-search')
+        .setAttribute('style', '');
+    }
+  });
 }
 
 /**
@@ -54,16 +93,57 @@ export default async function decorate(block) {
 
     const navSections = [...nav.children][1];
     if (navSections) {
-      navSections.querySelectorAll('ul > li').forEach((navSection) => {
-        if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-        navSection.addEventListener('click', () => {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
-          collapseAllNavSections(navSections);
-          collapseAllSiblings(navSection);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      const closeB = document.createElement('button');
+      closeB.classList.add('close-menu');
+      closeB.addEventListener('click', () => {
+        navSections.querySelectorAll('li[aria-expanded="true"]').forEach((elem) => {
+          elem.setAttribute('aria-expanded', 'false');
         });
       });
+      navSections.append(closeB);
+      navSections.querySelectorAll(':scope ul').forEach((elem) => {
+        elem.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        });
+      });
+      navSections.querySelectorAll('ul > li').forEach((liElement) => {
+        if (liElement.querySelector('ul')) liElement.classList.add('nav-drop');
+        liElement.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const expanded = liElement.getAttribute('aria-expanded') === 'true';
+          // collapseAllNavSections(navSections);
+          collapseAllSiblings(liElement);
+          collapseAllChildren(liElement);
+          liElement.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        });
+      });
+      const firstUl = navSections.querySelector('ul li:nth-child(1) ul');
+      const searchLi = document.createElement('li');
+      searchLi.classList.add('nav-drop');
+      firstUl.prepend(searchLi);
+      addSearchForm(searchLi);
+      searchLi.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
     }
+    const searchDialog = document.createElement('div');
+    searchDialog.classList.add('search-dialog');
+    searchDialog.classList.add('search-dialog-hidden');
+    const navTools = [...nav.children][2];
+    navTools.append(searchDialog);
+    navTools.querySelector('p').addEventListener('click', () => {
+      searchDialog.classList.remove('search-dialog-hidden');
+    });
+    searchDialog.innerHTML = `
+        <div class="search-dialog-header">
+            <button class="close-search"></button>
+        </div>`;
+    searchDialog.querySelector('.close-search').addEventListener('click', () => {
+      searchDialog.classList.add('search-dialog-hidden');
+    });
+    addSearchForm(searchDialog);
 
     // hamburger for mobile
     const hamburger = document.createElement('div');
