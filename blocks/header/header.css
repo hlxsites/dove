@@ -241,7 +241,7 @@ header nav[aria-expanded='true'] .nav-tools li {
     margin: 0;
   }
 
-  header nav .nav-sections > ul > li > ul > li:has(ul) > a::after {
+  header nav .nav-sections > ul > li > ul li:has(ul) > a::after {
     content: "\2304";
     display: inline-block;
     padding-left: 10px;
