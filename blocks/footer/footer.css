@@ -1,16 +1,32 @@
 footer {
-  padding: 2rem;
   background-color: var(--overlay-background-color);
   font-size: var(--body-font-size-s);
-}
-
-footer .footer {
-  max-width: 1200px;
+  width: 100%;
   margin: auto;
+  position: relative;
 }
 
-footer .footer p {
+.footer::before {
+  background: url("../../styles/footer-curve-device.svg") no-repeat;
+  background-size: 100%;
+  content: "";
+  display: block;
+  min-height: 100px;
+  position: absolute;
+  width: 100%;
+  top: -1px;
+}
+
+footer p {
+  display: flex;
   margin: 0;
+  justify-content: center;
+}
+
+footer p img {
+  margin-top: 42px;
+  width: 86px;
+  height: auto;
 }
 
 footer > div > div {
@@ -27,10 +43,11 @@ footer div div div {
 
 footer div div ul {
   list-style-type: none;
+  padding-inline-start: 0;
 }
 
 footer div div ul li {
-  line-height: 2.4rem;
+  line-height: 1.15rem;
   color: #666;
   font-size: 1.6rem;
   font-weight: 400;
@@ -38,9 +55,98 @@ footer div div ul li {
   margin: 0 0 29px;
   padding: 0;
   position: relative;
+  width: 176px;
 }
 
 footer div div ul li a:any-link {
   color: #666;
   font-size: 62.5%;
+}
+
+footer ul li a span.icon-external-link {
+  padding-left: 5px;
+}
+
+/* youtube and facebook logo */
+footer div div div:nth-child(4) ul li:nth-child(1) a img {
+  width: 37px;
+  height: auto;
+}
+
+/* france logo */
+footer div div div:nth-child(4) ul li:nth-child(2) {
+  margin-top: 23px;
+  margin-bottom: 72px;
+}
+
+footer div div div:nth-child(4) ul li:nth-child(2) a svg {
+  width: 14px;
+  height: auto;
+  margin-right: 10px;
+}
+
+/* unilever logo */
+footer div div div:nth-child(4) ul li:nth-child(4) {
+  display: flex;
+}
+
+footer div div div:nth-child(4) ul li:nth-child(4) a img {
+  width: 33px;
+  height: auto;
+}
+
+footer div div div:nth-child(5) p a {
+  display: none;
+}
+
+footer div div div:nth-child(4) ul li:nth-child(4) a:nth-child(2) {
+  font-size: 0.78rem;
+  line-height: 1.75rem;
+  margin-left: 10px;
+}
+
+footer div div div:nth-child(4) ul li:nth-child(4) a:nth-child(2) span {
+  display: none;
+}
+
+footer div div div:nth-child(5) p:nth-child(1) {
+  background: url("../../styles/oneTrustLogo.png") no-repeat;
+  background-size: contain;
+  content: "";
+  display: block;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  z-index: 100000;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+
+footer div div div:nth-child(5) p:nth-child(2) {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 27.5px;
+  background-size: contain;
+  content: "";
+  display: none;
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  z-index: 100000;
+  cursor: pointer;
+  width: 55px;
+  height: 55px;
+}
+
+footer div div div:nth-child(5) p:nth-child(2)::before {
+  content: "expand_less";
+
+  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+  font-family: "Material Icons";
+  font-size: 1.56rem;
+  display: inline-block;
+  padding-left: 14px;
+  padding-top: 7px;
+  color: #666;
 }
