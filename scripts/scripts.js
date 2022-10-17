@@ -659,6 +659,11 @@ function buildHeroBlock(main) {
   }
 }
 
+function buildBorderBlock(main) {
+  const borderBlock = createElement('div', 'border-gold');
+  main.append(borderBlock);
+}
+
 function loadHeader(header) {
   const headerBlock = buildBlock('header', '');
   header.append(headerBlock);
@@ -697,6 +702,7 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
+  buildBorderBlock(main);
 }
 
 /**
