@@ -141,6 +141,8 @@ footer div div div:nth-child(5) p:nth-child(2) {
 
 footer div div div:nth-child(5) p:nth-child(2)::before {
   content: "expand_less";
+
+  /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
   font-family: "Material Icons";
   font-size: 1.56rem;
   display: inline-block;
