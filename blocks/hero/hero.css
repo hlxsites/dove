@@ -5,9 +5,6 @@ main .hero-container>div {
 }
 
 main .hero-container {
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   position: relative;
   width: 100%;
@@ -16,18 +13,9 @@ main .hero-container {
 }
 
 main .hero {
-   padding: 0;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
+  padding: 0;
   align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   flex-direction: column;
   justify-content: center;
   overflow: hidden;
@@ -36,21 +24,12 @@ main .hero {
 }
 
 main .hero .hero-content {
-  -webkit-box-align: start;
-  -ms-flex-align: start;
   align-items: start;
   position: static;
-  -webkit-transform: none;
   transform: none;
-  width: 100%;
-
   margin: auto;
-  max-width: none;
-  padding: 24px 34px;
   text-align: center;
-  width: 100%;
   z-index: 0;
-
   max-width: 512px;
   padding: 0 10px;
   width: 50%;
@@ -67,26 +46,19 @@ main .hero .hero-description {
   margin-bottom: 0;
   max-height: none;
   overflow: hidden;
-  -webkit-transition: all 0.7s ease-in-out;
   transition: all 0.7s ease-in-out;
 }
 
 main .hero .hero-image {
   background: #fff;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   position: relative;
   width: 100%;
   z-index: -1;
 }
 
-main .hero .hero-image:before {
+main .hero .hero-image::before {
   background-color: #fff;
   border-radius: 100%;
   content: "";
@@ -95,15 +67,13 @@ main .hero .hero-image:before {
   opacity: 0.4;
   position: absolute;
   top: 90%;
-  -webkit-transform: translateY(-10px) rotate(-1.8deg);
   transform: translateY(-10px) rotate(-1.8deg);
-  -webkit-transition: top 0.8s 0.2s;
   transition: top 0.8s 0.2s;
   width: 220%;
   z-index: 22;
 }
 
-main .hero .hero-image:after {
+main .hero .hero-image::after {
   background-color: #fff;
   border-radius: 100%;
   content: "";
@@ -112,22 +82,19 @@ main .hero .hero-image:after {
   opacity: 1;
   position: absolute;
   top: 89%;
-  -webkit-transition: top 0.8s 0.2s;
   transition: top 0.8s 0.2s;
   width: 220%;
   z-index: 0;
 }
 
 @media only screen and (min-width: 768px) {
-  main .hero .hero-image:before {
-    -webkit-box-sizing: border-box;
+  main .hero .hero-image::before {
     box-sizing: border-box;
     top: 86%;
-    -webkit-transform: translateY(-15px) rotate(-1.7deg);
     transform: translateY(-15px) rotate(-1.7deg);
   }
 
-  main .hero .hero-image:after {
+  main .hero .hero-image::after {
     top: 86%;
   }
 }

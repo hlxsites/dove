@@ -20,7 +20,7 @@
   --text-color: #666;
 
   /* fonts */
-  --body-font-family: Helvetica, Arial, sans-serif;;
+  --body-font-family: helvetica, arial, sans-serif;;
   --heading-font-family: var(--body-font-family);
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
@@ -33,7 +33,7 @@
   --heading-font-size-xxl: 4rem;
   --heading-font-size-xl: 40px;
   --heading-font-size-l: 32px;
-  --heading-font-size-m: 24px;
+  --heading-font-size-m: 1.6rem;
   --heading-font-size-s: 20px;
   --heading-font-size-xs: 18px;
 
@@ -42,8 +42,7 @@
 
 }
 
-*, :after, :before {
-  -webkit-box-sizing: border-box;
+*, ::after, ::before {
   box-sizing: border-box;
 }
 
@@ -53,9 +52,7 @@ html {
 
 body {
   font-size: var(--body-font-size-m);
-  margin: 0;
   font-family: var(--body-font-family);
-  font-size: 1.6rem;
   letter-spacing: 0.406px;
   line-height: 1.5;
   color: var(--text-color);
@@ -64,8 +61,6 @@ body {
   margin: 0 0 20px;
   opacity: 1;
   padding: 0;
-  -webkit-font-smoothing: antialiased;
-  -webkit-tap-highlight-color: transparent;
 }
 
 body.appear {
