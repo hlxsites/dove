@@ -1,0 +1,118 @@
+div.home-story-wrapper {
+    max-width: 1000px;
+    height: 730px;
+}
+
+.home-story > div {
+    display: block;
+    align-content: center;
+    max-width: 1000px;
+    height: 730px;
+    overflow: visible;
+    position: relative;
+}
+
+.home-story:first-of-type > div {
+    background:url("https://assets.unileversolutions.com/v1/305727.png?im=AspectCrop=(800,600);Resize=(800,600)") no-repeat;
+    background-size: cover
+}
+
+.home-story.first:first-of-type > div {
+    background:url("https://assets.unileversolutions.com/v1/945216.png?im=AspectCrop=(800,600);Resize=(800,600)") no-repeat;
+    background-size: cover
+}
+
+.home-story .picture {
+    position: absolute;
+    width: 400px;
+    min-width: 400px;
+    height: 400px;
+    min-height: 400px;
+    overflow: hidden;
+}
+
+.home-story .picture.right {
+    right: 0;
+}
+
+.home-story.variant1 .picture.right {
+    top: 150px;
+}
+
+.home-story.variant2 .picture.left {
+    top: 150px;
+}
+
+.home-story img {
+    border-radius: 50%;
+}
+
+.home-story .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    border-radius: 50%;
+    background-color: white;
+    width: 435px;
+    min-width: 435px;
+    height: 435px;
+    min-height: 435px;
+    overflow: visible;
+    top: 50px;
+    left: 280px;
+}
+
+.home-story .content h2, .home-story .content h1 {
+    text-align: center;
+    font-size: 4rem;
+    line-height: 4.8rem;
+    margin-top: 1.6em;
+    margin-bottom: 1rem;
+}
+
+.home-story .content p {
+    font-size: 1.6rem;
+    line-height: 2.3rem;
+    text-align: center;
+    width: 395px;
+    margin-top: 0;
+    overflow: hidden;
+}
+
+.home-story .content a {
+    background-color: white;
+    border: 1px solid #dbc081;
+    border-radius: revert;
+    color: #002663;
+    font-weight: 300;
+    font-size: 1.6rem;
+    height: 51px;
+    line-height: 4.8rem;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding: 0 30px;
+    width: auto;
+    position: relative;
+}
+
+.home-story .content a::after {
+    background: linear-gradient(90deg,#b78938 0,#dabf80 25%,#ffe2ac 51%,#dabf80 76%,#b78938);
+    bottom: 0;
+    content: "";
+    display: inline-block;
+    height: 3px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.home-story .content a:hover {
+    background-color: #dbc081;
+    border-color: #b78938;
+    border-width: 1px;
+    color: #fff
+}
+
