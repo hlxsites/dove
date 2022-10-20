@@ -10,13 +10,13 @@ function decorateScrollToTop(footer) {
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   });
   // When the user scrolls down 20px from the top of the document, show the button
-  window.onscroll = () => {
+  window.addEventListener('scroll', () => {
     if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
       scrollToTop.style.display = 'block';
     } else {
       scrollToTop.style.display = 'none';
     }
-  };
+  });
 }
 
 /**

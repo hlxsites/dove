@@ -47,7 +47,7 @@ footer div div ul {
 }
 
 footer div div ul li {
-  line-height: 1.15rem;
+  line-height: 2.4rem;
   color: #666;
   font-size: 1.6rem;
   font-weight: 400;
@@ -60,7 +60,6 @@ footer div div ul li {
 
 footer div div ul li a:any-link {
   color: #666;
-  font-size: 62.5%;
 }
 
 footer ul li a span.icon-external-link {
@@ -100,13 +99,17 @@ footer div div div:nth-child(5) p a {
 }
 
 footer div div div:nth-child(4) ul li:nth-child(4) a:nth-child(2) {
-  font-size: 0.78rem;
-  line-height: 1.75rem;
+  font-size: 1.2rem;
+  line-height: 2.8rem;
   margin-left: 10px;
 }
 
 footer div div div:nth-child(4) ul li:nth-child(4) a:nth-child(2) span {
   display: none;
+}
+
+footer div div div:nth-child(5) {
+  max-width: 0;
 }
 
 footer div div div:nth-child(5) p:nth-child(1) {
@@ -144,7 +147,7 @@ footer div div div:nth-child(5) p:nth-child(2)::before {
 
   /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
   font-family: "Material Icons";
-  font-size: 1.56rem;
+  font-size: 2.4rem;
   display: inline-block;
   padding-left: 14px;
   padding-top: 7px;
