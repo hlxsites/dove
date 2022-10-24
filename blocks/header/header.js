@@ -63,6 +63,12 @@ function addSearchForm(searchDialog) {
   });
 }
 
+function closeNavigationDropdown(navSections) {
+  navSections.querySelectorAll('li[aria-expanded="true"]').forEach((elem) => {
+    elem.setAttribute('aria-expanded', 'false');
+  });
+}
+
 /**
  * decorates the header, mainly the nav
  * @param {Element} block The header block element
@@ -96,9 +102,7 @@ export default async function decorate(block) {
       const closeB = document.createElement('button');
       closeB.classList.add('close-menu');
       closeB.addEventListener('click', () => {
-        navSections.querySelectorAll('li[aria-expanded="true"]').forEach((elem) => {
-          elem.setAttribute('aria-expanded', 'false');
-        });
+        closeNavigationDropdown(navSections);
       });
       navSections.append(closeB);
       navSections.querySelectorAll(':scope ul').forEach((elem) => {
@@ -134,6 +138,7 @@ export default async function decorate(block) {
     const navTools = [...nav.children][2];
     navTools.append(searchDialog);
     navTools.querySelector('p').addEventListener('click', () => {
+      closeNavigationDropdown(navSections);
       searchDialog.classList.remove('search-dialog-hidden');
     });
     searchDialog.innerHTML = `
