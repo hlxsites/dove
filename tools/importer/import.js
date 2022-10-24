@@ -57,7 +57,13 @@ function transformProductCard(document) {
 function transformPageList(document) {
   document.querySelectorAll('.pagelist, .page-list-sidebar').forEach((pageList) => {
     const styles = mapVariantsToStyles(pageList.classList, [['pagelist-pink', 'pink'], ['blue', 'blue'], ['multiple-related-articles-circles', 'circle'], ['page-list-with-twisted-bg', 'circle'], ['cmp-pagelist-homrpage-fr', 'max'], ['page-list-sidebar', 'sidebar'], ['pagelist-topic', 'topic'], ['pagelist-flipcard', 'flipcard']]);
-    const pages = Array.from(pageList.querySelectorAll('ul.cmp-list > li')).map((li) => li.querySelector('a').href);
+    const pages = Array.from(pageList.querySelectorAll('ul.cmp-list > li')).map((li) => {
+      let path = li.querySelector('a').href;
+      if (path.endsWith('.html')) {
+        path = path.substring(0, path.length - 5);
+      }
+      return path;
+    });
 
     const cells = [
       [`Page List (${styles.join(', ')})`],
@@ -260,6 +266,12 @@ function makeAbsoluteLinks(main) {
     if (a.href.startsWith('/')) {
       const ori = a.href;
       const u = new URL(a.href, 'https://main--dove--hlxsites.hlx.page/');
+
+      // Remove .html extension
+      if (u.pathname.endsWith('.html')) {
+        u.pathname = u.pathname.slice(0, -5);
+      }
+
       a.href = u.toString();
 
       if (a.textContent === ori) {
