@@ -640,11 +640,14 @@ function buildHeroBlock(main) {
   if (h1 && picture && (h1.compareDocumentPosition(picture) & Node.DOCUMENT_POSITION_PRECEDING)) {
     const heroImage = createElement('div', 'hero-image', [picture]);
     const heroDescription = createElement('div', 'hero-description');
-    const heroReadMore = createElement('div', 'hero-more');
+    let heroReadMore = null;
     h1.closest('div').querySelectorAll('p').forEach((p, i) => {
       // eslint-disable-next-line no-bitwise
       if (h1.compareDocumentPosition(p) & Node.DOCUMENT_POSITION_FOLLOWING) {
         if (i > 1) {
+          if (heroReadMore == null) {
+            heroReadMore = createElement('div', 'hero-more');
+          }
           heroReadMore.appendChild(p);
         } else {
           heroDescription.appendChild(p);
@@ -652,7 +655,7 @@ function buildHeroBlock(main) {
       }
     });
     h1.classList.add('hero-title');
-    const heroContent = createElement('div', 'hero-content', [h1, heroDescription, heroReadMore, createReadMoreButton()]);
+    const heroContent = createElement('div', 'hero-content', heroReadMore == null ? [h1, heroDescription] : [h1, heroDescription, heroReadMore, createReadMoreButton()]);
     const section = document.createElement('div');
     section.append(createElement('div', 'hero', [heroImage, heroContent]));
     main.prepend(section);

@@ -180,10 +180,6 @@ main input:hover {
   border: 1px solid var(--text-color);
 }
 
-main .section {
-  padding: 64px 16px;
-}
-
 main pre {
   background-color: var(--overlay-background-color);
   padding: 1em;
@@ -220,12 +216,6 @@ main img {
   max-width: 100%;
   width: auto;
   height: auto;
-}
-
-@media (min-width: 600px) {
-  main .section {
-    padding: 64px 32px;
-  }
 }
 
 @media (min-width: 900px) {
