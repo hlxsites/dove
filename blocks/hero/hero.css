@@ -8,7 +8,6 @@ main .hero-container {
   flex-direction: column;
   position: relative;
   width: 100%;
-  padding: 35px 0;
   text-align: center;
 }
 
@@ -21,6 +20,10 @@ main .hero {
   overflow: hidden;
   width: 100%;
   margin-top: -175px;
+}
+
+main .hero .hidden {
+  display: none;
 }
 
 main .hero .hero-content {
@@ -104,4 +107,18 @@ main .hero .hero-image img {
   display: block;
   height: auto;
   width: 100%
+}
+
+main .hero button.read-more {
+  background: transparent;
+  border: 0;
+  bottom: 0;
+  font-weight: 300;
+  font-size: 1.6rem;
+  color: #546e98;
+  cursor: pointer;
+  display: inline-block;
+  padding-left: 0!important;
+  position: relative;
+  text-decoration: none;
 }
