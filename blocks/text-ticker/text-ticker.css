@@ -1,0 +1,43 @@
+.text-ticker {
+    background: #b9555a;
+    width: 100%;
+    margin-bottom: 60px;
+    min-height: 401px;
+    padding: 50px 0;
+    text-align: center;
+    color: white;
+}
+
+.text-ticker > div > div {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+}
+
+.text-ticker > div > div > p {
+    color: #fff;
+    font-size: 1.6rem;
+    font-weight: 300;
+    letter-spacing: 0.2px;
+    line-height: 2.3rem;
+    margin: 0;
+}
+
+.text-ticker > div > div > p:first-child::before {
+    background: url("../../styles/3-dove-logo-white.svg") no-repeat 50%;
+    background-size: contain;
+    content: "";
+    display: block;
+    height: 45px;
+    margin-bottom: 20px;
+    width: 125px;
+    position: static;
+}
+
+.text-ticker > div > div > p:nth-child(2) {
+    font-size: 6rem;
+    font-weight: 400;
+    letter-spacing: 0.75px;
+    line-height: normal;
+}

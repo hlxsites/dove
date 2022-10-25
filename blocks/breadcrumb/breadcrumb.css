@@ -1,0 +1,32 @@
+.breadcrumb ol {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin-block-start: 0;
+    padding-inline-start: 0;
+    font-size: 1.2rem;
+}
+
+.breadcrumb ol a:any-link {
+    color: #666;
+}
+
+.breadcrumb ol a::after {
+    display: inline-block;
+    stroke: #dbc081;
+    stroke-width: 2px;
+    content: "chevron_right";
+
+    /* stylelint-disable-next-line font-family-no-missing-generic-family-keyword */
+    font-family: "Material Icons";
+    color: #dbc0819e;
+    float: right;
+    font-size: 1.6rem;
+    font-weight: 100;
+    height: 10px;
+    margin: 3px 14px 3px 3px;
+    width: 15px;
+    position: relative;
+    top: -6px;
+    left: 4px;
+}
