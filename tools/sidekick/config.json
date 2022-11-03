@@ -6,7 +6,7 @@
         "environments": [
             "edit"
         ],
-        "url": "http://localhost:3000/tools/picker/dist/index.html",
+        "url": "https://commerce-picker--dove--hlxsites.hlx.page/tools/picker/dist/index.html",
         "isPalette": true,
         "paletteRect": "top: 54px; left: 5px; bottom: 5px; width: 300px; height: calc(100% - 59px); border-radius: var(--hlx-sk-button-border-radius); overflow: hidden; resize: horizontal;"
     }]
