@@ -1,3 +1,7 @@
+import { Picker } from 'http://localhost:1234/module.js';
+
+let productPicker;
+
 window.hlx.initSidekick({
   project: 'Unilever - Dove',
   libraries: [
@@ -29,6 +33,6 @@ window.hlx.initSidekick({
           document.head.appendChild(script);
         },
       },
-    },
+    }
   ],
 });

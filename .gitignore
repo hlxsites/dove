@@ -1,8 +1,9 @@
 .hlx/*
 coverage/*
 logs/*
-node_modules/*
+**/node_modules/*
 .cache/*
 
 helix-importer-ui
 imported
+.parcel-cache
