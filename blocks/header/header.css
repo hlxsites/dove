@@ -131,6 +131,7 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
 header nav .nav-sections {
   grid-area: sections;
   width: 100%;
+  visibility: hidden;
 }
 
 header nav .nav-sections ul  {
@@ -147,6 +148,7 @@ header nav .nav-sections li {
 header nav[aria-expanded='true'] .nav-sections {
   display: block;
   align-self: flex-start;
+  visibility: visible;
 }
 
 header nav:has(.nav-sections li[aria-expanded = true]) .close-menu {
@@ -378,6 +380,10 @@ header nav[aria-expanded='true'] .nav-tools li {
     justify-content: space-between;
     height: var(--nav-height);
     padding: 16px 2rem 16px 3rem;
+  }
+
+  header nav .nav-sections {
+    visibility: visible;
   }
 
   header nav .nav-sections > ul > li.nav-drop {
