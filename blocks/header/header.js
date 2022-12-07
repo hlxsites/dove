@@ -39,7 +39,8 @@ function addSearchForm(searchDialog) {
   searchContents.innerHTML = `<form>
             <div class="search-dialog-body">            
                 <label>Bonjour, que recherchez-vous?</label>
-                <input placeholder="Tapez quelque chose ici">
+                <button class="search-mag"></button>
+                <input placeholder="Tapez quelque chose ici">                
                 <button class="clear-search"></button>
                 <button class="search">Recherche</button>
             </div>
@@ -51,6 +52,10 @@ function addSearchForm(searchDialog) {
       searchInput.focus();
       searchContents.querySelector('.clear-search')
         .setAttribute('style', '');
+    });
+  searchContents.querySelector('.search-mag')
+    .addEventListener('click', () => {
+      searchInput.focus();
     });
   searchInput.addEventListener('keyup', () => {
     if (searchInput.value.length > 0) {
@@ -66,6 +71,7 @@ function addSearchForm(searchDialog) {
 function closeNavigationDropdown(navSections) {
   navSections.querySelectorAll('li[aria-expanded="true"]').forEach((elem) => {
     elem.setAttribute('aria-expanded', 'false');
+    collapseAllChildren(navSections);
   });
 }
 
@@ -101,9 +107,33 @@ export default async function decorate(block) {
     if (navSections) {
       const closeB = document.createElement('button');
       closeB.classList.add('close-menu');
+      const closeSpan = document.createElement('span');
       closeB.addEventListener('click', () => {
-        closeNavigationDropdown(navSections);
+        if (window.getComputedStyle(closeSpan).display === 'none') {
+          closeNavigationDropdown(navSections);
+        } else {
+          let currentLi = '';
+          let len = 0;
+
+          navSections.querySelectorAll('li[aria-expanded="true"]').forEach((elem) => {
+            let l = 0;
+            let par = elem;
+            while (par && par !== navSections) {
+              par = par.parentElement;
+              l += 1;
+            }
+            if (l > len) {
+              currentLi = elem;
+              len = l;
+            }
+          });
+          if (currentLi) {
+            currentLi.setAttribute('aria-expanded', 'false');
+          }
+        }
       });
+      closeSpan.append(document.createTextNode('Retour'));
+      closeB.append(closeSpan);
       navSections.append(closeB);
       navSections.querySelectorAll(':scope ul').forEach((elem) => {
         elem.addEventListener('click', (e) => {
@@ -153,11 +183,14 @@ export default async function decorate(block) {
     // hamburger for mobile
     const hamburger = document.createElement('div');
     hamburger.classList.add('nav-hamburger');
-    hamburger.innerHTML = '<div class="nav-hamburger-icon"></div>';
+    hamburger.innerHTML = '<div class="nav-hamburger-icon"></div><span>Menu</span>';
     hamburger.addEventListener('click', () => {
       const expanded = nav.getAttribute('aria-expanded') === 'true';
       document.body.style.overflowY = expanded ? '' : 'hidden';
       nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (!expanded) {
+        collapseAllChildren(navSections);
+      }
     });
     nav.prepend(hamburger);
     nav.setAttribute('aria-expanded', 'false');
