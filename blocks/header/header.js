@@ -83,7 +83,10 @@ function closeNavigationDropdown(navSections) {
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
   block.textContent = '';
-
+  const linkMI = document.createElement('link');
+  linkMI.setAttribute('rel', 'stylesheet');
+  linkMI.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+  block.append(linkMI);
   // fetch nav content
   const language = window.location.pathname.split('/')[1];
   const navPathDefault = language.length > 0 ? `/${language}/nav` : '/nav';
