@@ -1,17 +1,6 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/scripts.js';
 
 /**
- * collapses all open nav sections
- * @param {Element} sections The container element
- */
-
-// function collapseAllNavSections(sections) {
-//   sections.querySelectorAll('.nav-sections > ul > li').forEach((section) => {
-//     section.setAttribute('aria-expanded', 'false');
-//   });
-// }
-
-/**
  * collapses all open sibling
  *
  * @param {Element} element current element
@@ -83,6 +72,7 @@ function closeNavigationDropdown(navSections) {
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
   block.textContent = '';
+  // include Material Icons
   const linkMI = document.createElement('link');
   linkMI.setAttribute('rel', 'stylesheet');
   linkMI.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
@@ -113,11 +103,13 @@ export default async function decorate(block) {
       const closeSpan = document.createElement('span');
       closeB.addEventListener('click', () => {
         if (window.getComputedStyle(closeSpan).display === 'none') {
+          // close desktop navigation
           closeNavigationDropdown(navSections);
         } else {
+          // return in mobile navigation
+          // find the longest expanded path and close its last element
           let currentLi = '';
           let len = 0;
-
           navSections.querySelectorAll('li[aria-expanded="true"]').forEach((elem) => {
             let l = 0;
             let par = elem;

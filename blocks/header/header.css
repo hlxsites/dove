@@ -211,7 +211,7 @@ header nav .nav-tools .search-dialog {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vw;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-content: center;
@@ -219,6 +219,8 @@ header nav .nav-tools .search-dialog {
   padding: 30px 40px;
   backdrop-filter: blur(4px);
   cursor: default;
+  overflow: hidden;
+  z-index: 20;
 }
 
 header nav .nav-tools .search-dialog-hidden {
@@ -336,6 +338,10 @@ header .search-dialog-body .search-mag {
 }
 
 header .search-dialog-body input::placeholder {
+  color: #666;
+}
+
+.nav-sections .search-dialog-body input::placeholder {
   color: #aaa;
 }
 
@@ -414,6 +420,7 @@ header nav[aria-expanded='true'] .nav-sections {
   align-items: center;
   opacity: 1;
   z-index: -10;
+  overflow: hidden;
 }
 
 header nav .close-menu {
