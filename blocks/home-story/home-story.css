@@ -116,3 +116,128 @@ div.home-story-wrapper {
     color: #fff
 }
 
+@media (max-width: 1024px) {
+    div.home-story-wrapper {
+        max-width: revert;
+        height: revert;
+    }
+
+    .home-story > div {
+        max-width: 740px;
+        position: relative;
+        left: calc(50% - 370px);
+        height: 700px;
+    }
+
+    .home-story:first-of-type > div {
+        background-size: 110%;
+    }
+
+    .home-story.first:first-of-type > div {
+        background-size: 110%;
+    }
+
+    .home-story .picture {
+        width: 300px;
+        min-width: 300px;
+        height: 300px;
+        min-height: 300px;
+    }
+
+    .home-story .content {
+        max-width: 380px;
+        min-width: 380px;
+        max-height: 380px;
+        min-height: 380px;
+        left: calc(50% - 190px);
+    }
+
+    .home-story .content h2, .home-story .content h1 {
+        font-size: 3rem;
+        font-weight: 200;
+        line-height: 3.6rem;
+        margin-top: 30px;
+        max-width: 300px;
+    }
+
+    .home-story .content p {
+        width: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    div.home-story-wrapper {
+        max-width: revert;
+        height: revert;
+    }
+
+    .home-story {
+        display: block;
+        width: 100%;
+    }
+
+    .home-story > div {
+        max-width: 340px;
+        position: relative;
+        left: calc(50% - 170px);
+        height: 550px;
+    }
+
+    .home-story:first-of-type > div {
+        background-size: 70vw;
+    }
+
+    .home-story.first:first-of-type > div {
+        background-size: 70vw;
+    }
+
+    .home-story .picture {
+        width: 200px;
+        min-width: 200px;
+        height: 200px;
+        min-height: 200px;
+    }
+
+    .home-story.variant1 .picture.right {
+        top: 0;
+    }
+
+    .home-story.variant2 .picture.left {
+        top: 0;
+    }
+
+    .home-story .content {
+        left: 0;
+        border-radius: 0;
+        height: 350px;
+        min-height: 100px;
+        width: 100%;
+        margin-top: 125px;
+        min-width: revert;
+        background-color: hsl(0deg 0% 100% / 90%);
+    }
+
+    .home-story .content::before {
+        clip: rect(0,800px,15px,0);
+        background: inherit;
+        border-radius: 50%;
+        content: "";
+        display: inline-block;
+        height: 30px;
+        left: 0;
+        position: absolute;
+        top: -15px;
+        vertical-align: middle;
+        width: 100%;
+    }
+
+    .home-story .content h2, .home-story .content h1 {
+        font-size: 2.2rem;
+        line-height: 2.8rem;
+        margin-top: 0;
+    }
+
+    .home-story .content p {
+        width: 100%;
+    }
+}
