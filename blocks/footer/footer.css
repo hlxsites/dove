@@ -32,7 +32,7 @@ footer p img {
 footer > div > div {
   display: flex ;
   width: 100%;
-  padding: 155px 10px 5px;
+  padding: 155px 55px 5px;
   max-width: 64pc;
   margin: auto;
 }
@@ -152,4 +152,79 @@ footer div div div:nth-child(5) p:nth-child(2)::before {
   padding-left: 14px;
   padding-top: 7px;
   color: #666;
+}
+
+@media (max-width: 1024px) {
+  footer div div div {
+    width: 33%;
+  }
+
+  footer div div div:first-child {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  footer div div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  footer div div div {
+    width: 90%;
+  }
+
+  footer div div div ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+
+  footer div div div ul li {
+    width: unset;
+  }
+
+  footer div div div:first-child {
+    display: none;
+  }
+
+  /* youtube and facebook logo */
+  footer div div div:nth-child(4) ul li:nth-child(1) {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    width: 90%;
+    border-bottom: #ccc;
+    border-bottom-style: solid;
+    border-width: 1px;
+    bottom: 600px;
+    padding-bottom: 32px;
+  }
+
+  footer div div div:nth-child(4) ul li:nth-child(1) a img {
+    width: 48px;
+    height: 48px;
+  }
+
+  /* france logo */
+  footer div div div:nth-child(4) ul li:nth-child(2) {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* unilever logo */
+  footer div div div:nth-child(4) ul li:nth-child(4) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  footer div div div:nth-child(4) ul li:nth-child(4) a:first-child img {
+    width: 33px;
+    height: 37px;
+    margin-bottom: 10px;
+  }
 }
