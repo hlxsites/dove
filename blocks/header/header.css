@@ -8,13 +8,12 @@ header nav {
   padding: 0 2rem;
   position: fixed;
   z-index: 10;
-  background-color: var(--background-color);
+  background-color: hsl(0deg 0% 100% / 95%);
   width: 100vw;
   height: var(--nav-height);
   box-sizing: border-box;
   font-family: var(--body-font-family);
   border-bottom: 1px solid #ccc;
-  opacity: 0.95;
 }
 
 header nav a:any-link {
