@@ -1,17 +1,6 @@
 import { readBlockConfig, decorateIcons } from '../../scripts/scripts.js';
 
 /**
- * collapses all open nav sections
- * @param {Element} sections The container element
- */
-
-// function collapseAllNavSections(sections) {
-//   sections.querySelectorAll('.nav-sections > ul > li').forEach((section) => {
-//     section.setAttribute('aria-expanded', 'false');
-//   });
-// }
-
-/**
  * collapses all open sibling
  *
  * @param {Element} element current element
@@ -39,7 +28,8 @@ function addSearchForm(searchDialog) {
   searchContents.innerHTML = `<form>
             <div class="search-dialog-body">            
                 <label>Bonjour, que recherchez-vous?</label>
-                <input placeholder="Tapez quelque chose ici">
+                <button class="search-mag"></button>
+                <input placeholder="Tapez quelque chose ici">                
                 <button class="clear-search"></button>
                 <button class="search">Recherche</button>
             </div>
@@ -51,6 +41,10 @@ function addSearchForm(searchDialog) {
       searchInput.focus();
       searchContents.querySelector('.clear-search')
         .setAttribute('style', '');
+    });
+  searchContents.querySelector('.search-mag')
+    .addEventListener('click', () => {
+      searchInput.focus();
     });
   searchInput.addEventListener('keyup', () => {
     if (searchInput.value.length > 0) {
@@ -66,6 +60,7 @@ function addSearchForm(searchDialog) {
 function closeNavigationDropdown(navSections) {
   navSections.querySelectorAll('li[aria-expanded="true"]').forEach((elem) => {
     elem.setAttribute('aria-expanded', 'false');
+    collapseAllChildren(navSections);
   });
 }
 
@@ -77,7 +72,11 @@ function closeNavigationDropdown(navSections) {
 export default async function decorate(block) {
   const cfg = readBlockConfig(block);
   block.textContent = '';
-
+  // include Material Icons
+  const linkMI = document.createElement('link');
+  linkMI.setAttribute('rel', 'stylesheet');
+  linkMI.setAttribute('href', 'https://fonts.googleapis.com/icon?family=Material+Icons');
+  block.append(linkMI);
   // fetch nav content
   const language = window.location.pathname.split('/')[1];
   const navPathDefault = language.length > 0 ? `/${language}/nav` : '/nav';
@@ -101,9 +100,35 @@ export default async function decorate(block) {
     if (navSections) {
       const closeB = document.createElement('button');
       closeB.classList.add('close-menu');
+      const closeSpan = document.createElement('span');
       closeB.addEventListener('click', () => {
-        closeNavigationDropdown(navSections);
+        if (window.getComputedStyle(closeSpan).display === 'none') {
+          // close desktop navigation
+          closeNavigationDropdown(navSections);
+        } else {
+          // return in mobile navigation
+          // find the longest expanded path and close its last element
+          let currentLi = '';
+          let len = 0;
+          navSections.querySelectorAll('li[aria-expanded="true"]').forEach((elem) => {
+            let l = 0;
+            let par = elem;
+            while (par && par !== navSections) {
+              par = par.parentElement;
+              l += 1;
+            }
+            if (l > len) {
+              currentLi = elem;
+              len = l;
+            }
+          });
+          if (currentLi) {
+            currentLi.setAttribute('aria-expanded', 'false');
+          }
+        }
       });
+      closeSpan.append(document.createTextNode('Retour'));
+      closeB.append(closeSpan);
       navSections.append(closeB);
       navSections.querySelectorAll(':scope ul').forEach((elem) => {
         elem.addEventListener('click', (e) => {
@@ -153,11 +178,14 @@ export default async function decorate(block) {
     // hamburger for mobile
     const hamburger = document.createElement('div');
     hamburger.classList.add('nav-hamburger');
-    hamburger.innerHTML = '<div class="nav-hamburger-icon"></div>';
+    hamburger.innerHTML = '<div class="nav-hamburger-icon"></div><span>Menu</span>';
     hamburger.addEventListener('click', () => {
       const expanded = nav.getAttribute('aria-expanded') === 'true';
       document.body.style.overflowY = expanded ? '' : 'hidden';
       nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (!expanded) {
+        collapseAllChildren(navSections);
+      }
     });
     nav.prepend(hamburger);
     nav.setAttribute('aria-expanded', 'false');
